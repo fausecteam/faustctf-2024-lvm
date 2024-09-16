@@ -1,0 +1,22 @@
+version: "2.2"
+# ipv6 is not supported in version 3
+
+services:
+  lvm:
+    restart: unless-stopped
+    image: faust.cs.fau.de:5000/lvm
+    build: lvm/
+    volumes:
+      - ./data:/data
+    ports:
+      - "7777:8000/tcp"
+      - "7778:1337/tcp"
+
+
+networks:
+  default:
+    enable_ipv6: true
+    ipam:
+        driver: default
+        config:
+            - subnet: "fd42:d0ce:4234::/64"

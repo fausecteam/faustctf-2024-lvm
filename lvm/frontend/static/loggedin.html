@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+	<title>Lisp Virtual Machine</title>
+	<link rel="stylesheet" href="static/style.css">
+  </head>
+  <script>
+	async function refresh_files() {
+		let req = await fetch("/files");
+		let files = await req.json();
+		let list = document.querySelector("#filelist");
+		list.innerText = '';
+		files.forEach(elem => {
+			let entry = document.createElement('a');
+			entry.href = '/download/' + elem;
+			entry.innerText = elem;
+			list.appendChild(entry);
+		});
+	}
+	
+	window.onload = refresh_files;
+  </script>
+  <body>
+	<div id="navigation-container">
+	  <div id="navigation">
+		<a href="/logout"> Logout </a>
+	  </div>
+	</div>
+	<div id="content-container">
+	  <div id="content" class="flex">
+		<div class="columns">
+		  <div class="sidebar">
+			<p class="header"> Your Missions </p>
+			<div id="filelist">
+			</div>
+		  </div>
+		  <div style="width: 750px;">
+			<h1>Upload Your Lisp Bytecode</h1>
+
+			<p><span class="highlight">Agent, welcome to the secure bytecode upload terminal.</span></p>
+
+			<p>This interface is designed for covert operatives like you, who require the utmost secrecy in their Lisp-based operations. Here, you can securely upload precompiled Lisp bytecode for execution in our fortified environment. Rest assured, your mission data is protected with the highest level of encryption, ensuring that no unauthorized entity can intercept or decipher your operations.</p>
+
+			<h2>How It Works</h2>
+			<ol>
+			  <li><strong>Select Your Bytecode File:</strong> Choose the precompiled Lisp bytecode file from your local machine. Ensure that your file is in the correct format (.lispc) for smooth and efficient execution.</li>
+			  <li><strong>Assign a Mission Name:</strong> Provide a unique mission name or identifier for this upload. This helps in tracking and organizing your operations discreetly.</li>
+			  <li><strong>Upload and Execute:</strong> Once your file is uploaded, you’ll have the option to execute immediately or schedule the execution for a later time. The choice is yours, Agent.</li>
+			</ol>
+
+			<h2>Security Protocol</h2>
+			<ul>
+			  <li><strong>Encrypted Uploads:</strong> All files are uploaded over a secure, encrypted connection. Your data is safe from prying eyes during the entire process.</li>
+			  <li><strong>Confidential Execution:</strong> After upload, your bytecode is executed in a sandboxed environment, ensuring that your operations remain compartmentalized and secure.</li>
+			  <li><strong>No Source Code Exposure:</strong> Remember, only precompiled bytecode is stored and executed—your original source code remains completely hidden, safeguarding your intellectual property and mission strategies.</li>
+			</ul>
+
+			<h2>Mission Status</h2>
+			<p>Once uploaded, you can monitor the status of your mission through our secure dashboard. You’ll receive real-time updates on the execution progress and the results will be made available only to you.</p>
+
+			<h3>Prepare for Upload:</h3>
+
+			<form action="/upload" method="POST" enctype = "multipart/form-data">
+			  <label for="file" class="highlight">Choose File:</label><br>
+			  <input name='file' type='file'></input><br>
+			  <label for="mission-name" class="highlight">Mission Name:</label><br>
+			  <input type="text" id="mission-name" name="mission-name" class="input-field"><br>
+			  <input type="submit" value="Upload"> </input>
+			</form>
+
+
+			<p><em>Remember, Agent, in this line of work, discretion is everything. Keep your operations secure and your missions successful.</em></p>
+		  </div>
+		  <div></div>
+		</div>
+	  </div>
+	</div>
+  </body>
+</html>

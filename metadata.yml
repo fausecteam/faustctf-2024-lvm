@@ -1,0 +1,20 @@
+# Human-readable name of the service
+name: LVM
+slug: lvm
+authors:
+  - Florian Kothmeier <florian.kothmeier@fau.de>
+
+install:
+  container_images:
+    - faust.cs.fau.de:5000/lvm_deps
+    - faust.cs.fau.de:5000/lvm
+
+checker:
+  script_path: checker/lvm.py
+  # Upper bound of how long the Checker Script takes to run (for a single team)
+  # Used for scheduling checks within a tick, executions taking longer *may* get terminated
+  max_duration: 60
+  debian_packages:
+    - python3-requests
+    - python3-pwntools
+  pip_packages: []
